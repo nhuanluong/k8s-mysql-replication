@@ -1,4 +1,5 @@
 # k8s-mysql-replication
+Minikube can be help you try it.
 
 ### At master node
 ```sql
