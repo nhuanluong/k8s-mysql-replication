@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: master.cnf
+data:
+  master.cnf: |
+    # Apply this config only on the master.
+    [mysqld]
+    log-bin=mysql-bin.log
+    server-id = 1
+    sync_binlog=1
+    default_authentication_plugin=mysql_native_password
+    lower_case_table_names=1
+    sql_mode="STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION"
+    character-set-server=utf8mb4
+    collation-server=utf8mb4_unicode_ci
+    max_connections=1000
+    innodb-buffer-pool-size=1G

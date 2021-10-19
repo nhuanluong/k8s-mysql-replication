@@ -1,0 +1,70 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mysql-master
+  #namespace: staging
+  labels:
+    app: auth
+spec:
+  serviceName: mysql-master
+  selector:
+    matchLabels:
+      app: mysql-master
+  #strategy:
+    #type: Recreate
+  template:
+    metadata:
+      labels:
+        app: mysql-master
+    spec:
+      #nodeName: node11 
+      containers:
+        - image: mysql:8
+          imagePullPolicy: Always
+          name: mysql-master                      
+          #args:
+          #  - --default-authentication-plugin=mysql_native_password
+          #  - --innodb-buffer-pool-size=1G            
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: P@ssword
+          ports:
+            - containerPort: 3306
+              name: mysql-master
+          volumeMounts:
+            - name: mysql-volume
+              mountPath: /var/lib/mysql
+            - name: config-volume
+              mountPath: /etc/mysql/conf.d
+      volumes:
+        - name: mysql-volume
+          persistentVolumeClaim:
+            claimName: staging-master-pvc
+        - name: config-volume
+          configMap:
+            name: master.cnf
+  volumeClaimTemplates:
+  - metadata:
+      name: data
+    spec:
+      accessModes: ["ReadWriteOnce"]
+      resources:
+        requests:
+          storage: 10Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-master
+  #namespace: staging
+  labels:
+    app: mysql-master
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 3306
+      targetPort: 3306
+      nodePort: 30100
+      protocol: TCP
+  selector:
+      app: mysql-master
