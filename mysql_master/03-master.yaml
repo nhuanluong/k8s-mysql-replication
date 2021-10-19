@@ -1,8 +1,7 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: mysql-master
-  #namespace: staging
+  name: mysql-master  
   labels:
     app: auth
 spec:
@@ -27,7 +26,7 @@ spec:
           #  - --innodb-buffer-pool-size=1G            
           env:
             - name: MYSQL_ROOT_PASSWORD
-              value: P@ssword
+              value: changeme
           ports:
             - containerPort: 3306
               name: mysql-master

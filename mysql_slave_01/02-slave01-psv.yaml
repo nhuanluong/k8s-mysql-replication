@@ -23,8 +23,7 @@ kind: PersistentVolumeClaim
 metadata:
   labels:
     type: local
-  name: staging-slave01-pvc
-  #namespace: staging
+  name: staging-slave01-pvc  
 spec:
   accessModes:
     - ReadWriteOnce
