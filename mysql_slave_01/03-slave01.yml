@@ -18,9 +18,9 @@ spec:
         - image: mysql:8
           imagePullPolicy: Always
           name: mysql-slave01
-          args:
-            - '--default-authentication-plugin=mysql_native_password'
-            - '--innodb-buffer-pool-size=1G'
+          #args:
+          #  - '--default-authentication-plugin=mysql_native_password'
+          #  - '--innodb-buffer-pool-size=1G'
           env:
             - name: MYSQL_ROOT_PASSWORD
               value: changeme
