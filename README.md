@@ -2,7 +2,7 @@
 
 ### At master node
 ```sql
-SHOW MASTER STATUS;
+show master status;
 ```
 example result:
 `mysql-bin.000003	156`
@@ -11,7 +11,7 @@ example result:
 CHANGE MASTER TO MASTER_HOST='192.168.x.x',
 MASTER_PORT=30100,
 MASTER_USER='root',
-MASTER_PASSWORD='changeme,
+MASTER_PASSWORD='changeme',
 MASTER_LOG_FILE='mysql-bin.000003',
 MASTER_LOG_POS=156;
 ```
